@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace ImSmarterLogParser
 {
@@ -8,5 +9,10 @@ namespace ImSmarterLogParser
         public String Sender { get; set; }
         public String Receiver { get; set; }
         public String Text { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("({0}) {1}: {2}", TimeStamp.ToString("h:mm:ss tt"), Sender, Text);
+        }
     }
 }

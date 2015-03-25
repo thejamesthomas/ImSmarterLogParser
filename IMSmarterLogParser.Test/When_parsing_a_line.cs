@@ -17,6 +17,7 @@ namespace ImSmarterLogParser.Test
         private It should_have_the_sender = () => message.Sender.ShouldEqual("theguest");
         private It should_have_the_receiver = () => message.Receiver.ShouldEqual("thehost");
         private It should_have_the_text = () => message.Text.ShouldEqual("sup buddy");
+        private It should_convert_to_a_string = () => message.ToString().ShouldEqual("(3:37:03 PM) theguest: sup buddy");
 
         private static String input;
         private static Message message;
