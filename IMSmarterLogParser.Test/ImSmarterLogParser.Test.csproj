@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="When_parsing_a_line.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="When_parsing_multiple_lines.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

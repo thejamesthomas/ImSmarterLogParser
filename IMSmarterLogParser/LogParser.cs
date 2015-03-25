@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Text.RegularExpressions;
-using NodaTime;
+using IMSmarterLogParser;
 using NodaTime.Text;
 
 namespace ImSmarterLogParser
@@ -10,7 +11,6 @@ namespace ImSmarterLogParser
     {
         public static Message ParseLine(string input)
         {
-//            const string pattern = @"(\w+) (?<Month>\w+) (?<Day>\d+) (?<Year>\d+) (?<Hour>\d+):(?<Minute>\d+):(?<Second>\d+)(?<AmPm>a|pm) (?<Host>\w+) . (?<Guest>\w+) (?<Message>.+)$";
             const string pattern = @"^(?<TimeStamp>([\w\s:]+)(a|pm)) (?<Host>\w+) (?<Direction>.) (?<Guest>\w+) (?<Text>.+)$";
             var match = Regex.Match(input, pattern);
 
@@ -22,6 +22,21 @@ namespace ImSmarterLogParser
                 Text = GetText(match)
             };
             return message;
+        }
+
+        public static Log ParseLines(string inputLines)
+        {
+            var log = new Log();
+            using (var reader = new StringReader(inputLines))
+            {
+                String line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var message = ParseLine(line);
+                    log.AddMessage(message);
+                }
+            }
+            return log;
         }
 
         private static string GetText(Match match)
